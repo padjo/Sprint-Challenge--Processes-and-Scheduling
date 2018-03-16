@@ -97,7 +97,6 @@ int main(void)
         for (int i = 0; args[i] != NULL; i++) {
             printf("%d: '%s'\n", i, args[i]);
         }
-        printf("hello pat");
         #endif
 
         // extra credit : change directories with cd
