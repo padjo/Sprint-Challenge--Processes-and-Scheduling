@@ -6,12 +6,19 @@ Add your answers inline, below, with your pull request.
 
 1. List all of the main states a process may be in at any point in time on a
    standard Unix system. Briefly explain what each of these states mean.
+   running -- process is running on cpu . Waiting a process is waiting it's turn
+   on the cpu . Zombie - Child process is finished but not removed from process table. Stopped -- A signal is sent to stop the process
 
 2. What is a Zombie Process? How does it get created? How does it get destroyed?
+   When a child process finishes running it's exit status is ready to be sent to the parent. For this reason it is in a zombie state until the parent calls wait to get this status code and the child process id can be removed from the process table. 
 
 3. Describe the job of the Scheduler in the OS in general.
+    The scheduler decides what process get to run in what order , how often and
+    for how long. More details in the next section 
 
 4. Describe the benefits of the MLFQ over a plain Round-Robin scheduler.
+   Round robin scheduling assigns each process and equal time slice. It is a simple 
+   scheduler. The multi level feedback queue implements several process queues that have different priorities and allocate different time slices per process and queue. When a process starts it's put on the top priority queue. If it uses it's allocated time slice it's put on the next priority queue. The big advantage of multi level feedback queues is that new short running processes are always responsive which is often user interface events. Long running cpu intense processes still get to run and are not starved. After an time interval all process are put on the top priority queue and the long running process tricke down to the lowest priority queu again. this scheduler won a turing award and is very common in unix and windows operating systems.  
 
 ## Programming Exercise: The Lambda School Shell (`lssh`)
 
