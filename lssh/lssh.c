@@ -97,8 +97,28 @@ int main(void)
         for (int i = 0; args[i] != NULL; i++) {
             printf("%d: '%s'\n", i, args[i]);
         }
-
+        printf("hello pat");
         #endif
+
+        // extra credit : change directories with cd
+        if (strcmp(args[0], "cd") == 0) {
+            if(chdir(args[1]) == -1)  {
+                printf("Failed to chdir to %s\n", args[1]);
+            } 
+            continue;
+        }
+
+        int rc = fork();
+        if (rc < 0) {    // fork failed; exit
+            fprintf(stderr, "fork failed\n");
+            exit(1);
+        } else if (rc == 0) {    // child process satisfies this branch
+            //execl("/bin/ls", "ls","-la", NULL);     // runs the ls program, passing in the `myargs` array as arguments
+            execvp(args[0], &args[0]);
+            printf("this should not be seen");
+        } else {
+            int wc = wait( NULL);    // wait for the child process exec to end first
+        }
     }
 
     return 0;
